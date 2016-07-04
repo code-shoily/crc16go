@@ -28,15 +28,12 @@ var CRC16Table = [256]uint16{
 	0x2c6a, 0x1ef1, 0x0f78,
 }
 
-// CRCValue ...
-const CRCValue uint16 = 0xffff
-
 // Compute computes CRC-ITU value of a sequence of bytes
-func Compute(bytes []uint16) uint16 {
-	crcTmp := CRCValue
-	for _, i := range bytes {
+func Compute(arr []uint16) uint16 {
+	crcTmp := uint16(0xffff)
+	for _, i := range arr {
 		crcTmp = (crcTmp >> 8) ^ CRC16Table[(crcTmp^i)&0xff]
 	}
 
-	return ^crcTmp & CRCValue
+	return ^crcTmp & 0xffff
 }
